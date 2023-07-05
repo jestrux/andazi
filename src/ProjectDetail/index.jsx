@@ -26,23 +26,6 @@ const ProjectDetail = () => {
 		}
 	};
 
-	const handleSave = async () => {
-		try {
-			const image = await fetch(project);
-			const blob = await image.blob();
-
-			const url = URL.createObjectURL(blob);
-			const a = document.createElement("a");
-			a.href = url;
-			a.target = "_blank";
-			a.download = "video.jpg";
-			a.click();
-			URL.revokeObjectURL(url);
-		} catch (error) {
-			console.log("Saving failed", error);
-		}
-	};
-
 	return (
 		<>
 			<div className="nav-bar bg-card">
@@ -54,18 +37,6 @@ const ProjectDetail = () => {
 					</button>
 
 					<div className="flex-1"></div>
-
-					{/* <button
-						className="h-9 mr-2.5 bg-neutral-50 border border-neutral-300 flex items-center gap-2 rounded-full px-4"
-						onClick={handleSave}
-					>
-						<ArrowDownTrayIcon
-							className="mt-px"
-							width={14}
-							strokeWidth={2.5}
-						/>
-						<span className="mr-0.5">Save</span>
-					</button> */}
 
 					<button
 						className="bg-gradient-to-br text-white from-[#8BC34A] to-[#4CAF50] h-9 flex items-center gap-2 rounded-full px-4"
