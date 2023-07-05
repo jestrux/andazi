@@ -14,7 +14,7 @@ const Projects = ({ onSelect }) => {
 
 	return (
 		<>
-			<div className="nav-bar bg-white sticky top-0">
+			<div className="nav-bar bg-white">
 				<div className="h-14 p-3 border-b flex items-center justify-between">
 					<h1 className="font-bold text-xl/none">Andazi</h1>
 

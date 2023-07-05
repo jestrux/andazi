@@ -41,7 +41,7 @@ const ProjectDetail = ({ project, onGoHome }) => {
 
 	return (
 		<>
-			<div className="nav-bar bg-white sticky top-0">
+			<div className="nav-bar bg-white">
 				<div className="h-14 p-3 border-b flex items-center">
 					<button onClick={onGoHome}>
 						<HomeIcon width={24} />
