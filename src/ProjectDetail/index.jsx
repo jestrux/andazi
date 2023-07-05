@@ -31,6 +31,7 @@ const ProjectDetail = ({ project, onGoHome }) => {
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement("a");
 			a.href = url;
+			a.target = "_blank";
 			a.download = "video.jpg";
 			a.click();
 			URL.revokeObjectURL(url);
