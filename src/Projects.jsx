@@ -37,7 +37,7 @@ const Projects = ({ onSelect }) => {
 			</div>
 
 			<div className="flex-1 bg-neutral-200 overflow-auto">
-				<div className="grid grid-cols-2 gap-3 p-3">
+				<div className="grid grid-cols-2 gap-3 p-3 mb-4">
 					{projects.map((image, i) => (
 						<button
 							key={i}

@@ -54,11 +54,11 @@ const ProjectDetail = ({ project, onGoHome }) => {
 						onClick={handleSave}
 					>
 						<ArrowDownTrayIcon
-							className="mb-px"
+							className="mt-px"
 							width={14}
 							strokeWidth={2.5}
 						/>
-						<span className="mr-[0.1rem]">Save</span>
+						<span className="mr-0.5">Save</span>
 					</button>
 
 					<button
@@ -86,7 +86,7 @@ const ProjectDetail = ({ project, onGoHome }) => {
 			</div>
 
 			<div className="bottom-nav">
-				<div className="h-14 py-1 bg-white border-t flex items-center gap-1">
+				<div className="h-full py-1 bg-white border-t flex items-center gap-1">
 					<button className="flex flex-col gap-0.5 items-center justify-center flex-1 flex-shrink-0">
 						<RectangleStackIcon width={20} />
 						<span className="text-xs/none font-light opacity-70">
