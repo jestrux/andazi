@@ -7,12 +7,15 @@ import {
 	ChevronLeftIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
+import Scene from "./Scene";
+import { useRef } from "react";
 
 const ProjectDetail = () => {
 	const {
 		state: { project },
 	} = useLocation();
 	const navigate = useNavigate();
+	const animators = useRef([]);
 
 	const handleShare = async () => {
 		try {
@@ -26,13 +29,31 @@ const ProjectDetail = () => {
 		}
 	};
 
+	const handleAddAnimator = (index, animator) => {
+		if (index > animators.current.length) animators.current.push({});
+
+		const animation = animator();
+		animation.replay = () => {
+			animation.cancel();
+
+			setTimeout(() => {
+				animation.play();
+			}, 200);
+		};
+		animation.cancel();
+		animators.current[index] = animation;
+	};
+
+	const handlePlay = async () => {
+		const animation = animators.current[0];
+		animation.replay();
+	};
+
 	return (
 		<>
 			<div className="nav-bar bg-card">
 				<div className="h-14 p-3 border-b flex items-center">
-					<button
-						onClick={() => navigate("/", { replace: true })}
-					>
+					<button onClick={() => navigate("/", { replace: true })}>
 						<ChevronLeftIcon width={24} strokeWidth={2.5} />
 					</button>
 
@@ -53,13 +74,10 @@ const ProjectDetail = () => {
 			</div>
 
 			<div className="flex-1 flex items-stretch bg-canvas overflow-auto p-6">
-				<div className="bg-card shadow-xl rounded-lg w-full text-left relative overflow-hidden">
-					<img
-						className="absolute inset-0 h-full w-full object-cover"
-						src={project}
-						alt=""
-					/>
-				</div>
+				<Scene
+					image={project}
+					onInit={(fn) => handleAddAnimator(0, fn)}
+				/>
 			</div>
 
 			<div className="bottom-nav">
@@ -76,7 +94,10 @@ const ProjectDetail = () => {
 							Theme
 						</span>
 					</button>
-					<button className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center">
+					<button
+						className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center"
+						onClick={handlePlay}
+					>
 						<svg className="ml-0.5 mt-px h-6" viewBox="0 0 24 24">
 							<defs>
 								<linearGradient
