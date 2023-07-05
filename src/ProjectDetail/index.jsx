@@ -75,10 +75,10 @@ const ProjectDetail = ({ project, onGoHome }) => {
 				</div>
 			</div>
 
-			<div className="flex-1 flex items-center justify-center bg-neutral-200 overflow-auto px-4">
-				<div className="w-full bg-white shadow rounded-lg text-left aspect-[1/1.5] relative overflow-hidden">
+			<div className="flex-1 flex items-stretch bg-neutral-200 overflow-auto p-6">
+				<div className="bg-white shadow rounded-lg w-full text-left relative overflow-hidden">
 					<img
-						className="absolute inset-0 w-full h-full object-cover"
+						className="absolute inset-0 h-full w-full object-cover"
 						src={project}
 						alt=""
 					/>

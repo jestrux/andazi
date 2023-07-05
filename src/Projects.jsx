@@ -41,11 +41,11 @@ const Projects = ({ onSelect }) => {
 					{projects.map((image, i) => (
 						<button
 							key={i}
-							className="bg-white shadow rounded-lg text-left aspect-[1/1.5] relative overflow-hidden p-1.5"
+							className="bg-white shadow rounded-lg text-left aspect-[1/1.5] relative flex items-stretch overflow-hidden p-1.5"
 							onClick={() => onSelect(image)}
 						>
 							<img
-								className="w-full h-full object-cover rounded"
+								className="object-cover rounded"
 								src={image}
 								alt=""
 							/>
