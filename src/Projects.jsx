@@ -16,7 +16,7 @@ const Projects = () => {
 		<>
 			<div className="nav-bar bg-card">
 				<div className="h-14 px-4 border-b flex items-center">
-					<img className="h-7 mr-0.5" src="/icon-512.png" alt="" />
+					<img className="h-7 mr-0.5" src="icon-512.png" alt="" />
 					<h1 className="font-bold text-xl/none pt-1 logo">ndazi</h1>
 
 					<div className="flex-1"></div>
