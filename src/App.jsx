@@ -1,19 +1,9 @@
-import { useState } from "react";
-import Projects from "./Projects";
-import ProjectDetail from "./ProjectDetail";
+import { Outlet } from "react-router-dom";
 
 function App() {
-	const [project, setProject] = useState(null);
-
 	return (
 		<div id="appWrapper" className="flex flex-col">
-			{!project && <Projects onSelect={setProject} />}
-			{project && (
-				<ProjectDetail
-					project={project}
-					onGoHome={() => setProject(null)}
-				/>
-			)}
+			<Outlet />
 		</div>
 	);
 }

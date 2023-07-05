@@ -1,16 +1,19 @@
-import { useState } from "react";
 import {
 	ArrowUpTrayIcon,
-	HomeIcon,
 	MusicalNoteIcon,
-	SignalIcon,
 	RectangleStackIcon,
-	SunIcon,
-	ArrowDownTrayIcon,
+	FolderOpenIcon,
+	SwatchIcon,
+	ChevronLeftIcon,
 } from "@heroicons/react/24/outline";
-import { PlayIcon } from "@heroicons/react/24/solid";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const ProjectDetail = ({ project, onGoHome }) => {
+const ProjectDetail = () => {
+	const {
+		state: { project },
+	} = useLocation();
+	const navigate = useNavigate();
+
 	const handleShare = async () => {
 		try {
 			const image = await fetch(project);
@@ -42,15 +45,17 @@ const ProjectDetail = ({ project, onGoHome }) => {
 
 	return (
 		<>
-			<div className="nav-bar bg-white">
+			<div className="nav-bar bg-card">
 				<div className="h-14 p-3 border-b flex items-center">
-					<button onClick={onGoHome}>
-						<HomeIcon width={24} />
+					<button
+						onClick={() => navigate("/", { replace: true })}
+					>
+						<ChevronLeftIcon width={24} strokeWidth={2.5} />
 					</button>
 
 					<div className="flex-1"></div>
 
-					<button
+					{/* <button
 						className="h-9 mr-2.5 bg-neutral-50 border border-neutral-300 flex items-center gap-2 rounded-full px-4"
 						onClick={handleSave}
 					>
@@ -60,7 +65,7 @@ const ProjectDetail = ({ project, onGoHome }) => {
 							strokeWidth={2.5}
 						/>
 						<span className="mr-0.5">Save</span>
-					</button>
+					</button> */}
 
 					<button
 						className="bg-gradient-to-br text-white from-[#8BC34A] to-[#4CAF50] h-9 flex items-center gap-2 rounded-full px-4"
@@ -76,8 +81,8 @@ const ProjectDetail = ({ project, onGoHome }) => {
 				</div>
 			</div>
 
-			<div className="flex-1 flex items-stretch bg-neutral-200 overflow-auto p-6">
-				<div className="bg-white shadow rounded-lg w-full text-left relative overflow-hidden">
+			<div className="flex-1 flex items-stretch bg-canvas overflow-auto p-6">
+				<div className="bg-card shadow-xl rounded-lg w-full text-left relative overflow-hidden">
 					<img
 						className="absolute inset-0 h-full w-full object-cover"
 						src={project}
@@ -87,21 +92,21 @@ const ProjectDetail = ({ project, onGoHome }) => {
 			</div>
 
 			<div className="bottom-nav">
-				<div className="h-full py-1 bg-white border-t flex items-center gap-1">
-					<button className="flex flex-col gap-0.5 items-center justify-center flex-1 flex-shrink-0">
+				<div className="h-full py-1 bg-card border-t flex items-center gap-1">
+					<button className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0">
 						<RectangleStackIcon width={20} />
 						<span className="text-xs/none font-light opacity-70">
-							Assets
+							Scenes
 						</span>
 					</button>
-					<button className="flex flex-col gap-0.5 items-center justify-center flex-1 flex-shrink-0">
-						<SunIcon width={20} />
+					<button className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0">
+						<SwatchIcon width={20} />
 						<span className="text-xs/none font-light opacity-70">
-							Filters
+							Theme
 						</span>
 					</button>
-					<button className="mb-0.5 mx-3 flex h-10 aspect-square rounded-full shadow-lg border border-neutral-200/60 items-center justify-center">
-						<svg className="ml-0.5" width={20} viewBox="0 0 24 24">
+					<button className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center">
+						<svg className="ml-0.5 mt-px h-6" viewBox="0 0 24 24">
 							<defs>
 								<linearGradient
 									id="grad1"
@@ -135,16 +140,16 @@ const ProjectDetail = ({ project, onGoHome }) => {
 							/>
 						</svg>
 					</button>
-					<button className="flex flex-col gap-0.5 items-center justify-center flex-1 flex-shrink-0">
+					<button className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0">
 						<MusicalNoteIcon width={20} />
 						<span className="text-xs/none font-light opacity-70">
 							Music
 						</span>
 					</button>
-					<button className="flex flex-col gap-0.5 items-center justify-center flex-1 flex-shrink-0">
-						<SignalIcon width={20} />
+					<button className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0">
+						<FolderOpenIcon width={20} />
 						<span className="text-xs/none font-light opacity-70">
-							Animation
+							Assets
 						</span>
 					</button>
 				</div>

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
-const Projects = ({ onSelect }) => {
+const Projects = () => {
 	const [projects, setProjects] = useState([
 		"https://images.unsplash.com/photo-1588072432904-843af37f03ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDI3fHxzY2hvb2x8ZW58MHx8fHwxNjg4NTQwMDIwfDA&ixlib=rb-4.0.3&q=80&w=600",
 		"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDIzfHxzY2hvb2x8ZW58MHx8fHwxNjg4NTQwMDIwfDA&ixlib=rb-4.0.3&q=80&w=600",
@@ -14,17 +15,17 @@ const Projects = ({ onSelect }) => {
 
 	return (
 		<>
-			<div className="nav-bar bg-white">
+			<div className="nav-bar bg-card">
 				<div className="h-14 p-3 border-b flex items-center justify-between">
-					<h1 className="font-bold text-xl/none">Andazi</h1>
+					<h1 className="font-bold text-xl/none pt-1 logo">Andazi</h1>
 
-					<button
+					<Link
 						className="bg-gradient-to-br text-white from-[#8BC34A] to-[#4CAF50] h-9 flex items-center gap-2 rounded-full px-4"
-						onClick={() =>
-							onSelect(
-								"https://images.unsplash.com/photo-1429198739803-7db875882052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDF8fGF1dHVtbnxlbnwwfHx8fDE2ODg1NDQzOTN8MA&ixlib=rb-4.0.3&q=80&w=600"
-							)
-						}
+						to="new"
+						state={{
+							project:
+								"https://images.unsplash.com/photo-1429198739803-7db875882052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDF8fGF1dHVtbnxlbnwwfHx8fDE2ODg1NDQzOTN8MA&ixlib=rb-4.0.3&q=80&w=600",
+						}}
 					>
 						<PlusIcon
 							className="mb-px"
@@ -32,24 +33,27 @@ const Projects = ({ onSelect }) => {
 							strokeWidth={3.5}
 						/>
 						<span className="mr-0.5">New project</span>
-					</button>
+					</Link>
 				</div>
 			</div>
 
-			<div className="flex-1 bg-neutral-200 overflow-auto">
+			<div className="flex-1 bg-canvas overflow-auto">
 				<div className="grid grid-cols-2 gap-3 p-3 mb-4">
 					{projects.map((image, i) => (
-						<button
+						<Link
 							key={i}
-							className="bg-white shadow rounded-lg text-left aspect-[1/1.5] relative flex items-stretch overflow-hidden p-1.5"
-							onClick={() => onSelect(image)}
+							className="bg-card shadow rounded-lg text-left aspect-[1/1.5] relative flex items-stretch overflow-hidden p-1.5"
+							to={`project${i + 1}`}
+							state={{
+								project: image,
+							}}
 						>
 							<img
 								className="object-cover rounded"
 								src={image}
 								alt=""
 							/>
-						</button>
+						</Link>
 					))}
 				</div>
 			</div>
