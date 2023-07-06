@@ -8,14 +8,31 @@ import {
 } from "@heroicons/react/24/outline";
 import { useLocation, useNavigate } from "react-router-dom";
 import Scene from "./Scene";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const ProjectDetail = () => {
 	const {
 		state: { project },
 	} = useLocation();
+	const scenes = [
+		{
+			image: project,
+			text: "#AUTUMNING\nIN STYLE",
+		},
+		{
+			image: "https://images.unsplash.com/photo-1538580619159-6c19131e1062?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDd8fGF1dHVtbnxlbnwwfHx8fDE2ODg1NDQzOTN8MA&ixlib=rb-4.0.3&q=80&w=600",
+			clip: "circle",
+		},
+		{
+			image: "https://images.unsplash.com/photo-1567584032175-e3605e93b056?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDE0fHxhdXR1bW58ZW58MHx8fHwxNjg4NTQ0MzkzfDA&ixlib=rb-4.0.3&q=80&w=600",
+			text: "LET'S HAVE US\nSOME FUN",
+			clip: "circle",
+		},
+	];
+	const [playing, setPlaying] = useState(false);
+	const [currentScene, setCurrentScene] = useState(0);
 	const navigate = useNavigate();
-	const animators = useRef([]);
+	const animators = useRef(Array(scenes.length).fill({}));
 
 	const handleShare = async () => {
 		try {
@@ -31,22 +48,18 @@ const ProjectDetail = () => {
 
 	const handleAddAnimator = (index, animator) => {
 		if (index > animators.current.length) animators.current.push({});
-
-		const animation = animator();
-		animation.replay = () => {
-			animation.cancel();
-
-			setTimeout(() => {
-				animation.play();
-			}, 200);
-		};
-		animation.cancel();
-		animators.current[index] = animation;
+		animators.current[index] = animator;
 	};
 
 	const handlePlay = async () => {
-		const animation = animators.current[0];
-		animation.replay();
+		setPlaying(true);
+		setCurrentScene(0);
+		for (const animator of animators.current) {
+			await animator();
+			setCurrentScene((s) => s + 1);
+		}
+		setCurrentScene(0);
+		setPlaying(false);
 	};
 
 	return (
@@ -73,11 +86,15 @@ const ProjectDetail = () => {
 				</div>
 			</div>
 
-			<div className="flex-1 flex items-stretch bg-canvas overflow-auto p-6">
-				<Scene
-					image={project}
-					onInit={(fn) => handleAddAnimator(0, fn)}
-				/>
+			<div className="flex-1 flex items-stretch bg-canvas overflow-auto p-6 relative">
+				{scenes.map((scene, i) => (
+					<Scene
+						key={i}
+						{...scene}
+						hidden={currentScene < i}
+						onInit={(fn) => handleAddAnimator(i, fn)}
+					/>
+				))}
 			</div>
 
 			<div className="bottom-nav">
@@ -126,7 +143,11 @@ const ProjectDetail = () => {
 
 							<path
 								fillRule="evenodd"
-								d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+								d={
+									playing > 0
+										? "M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
+										: "M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+								}
 								clipRule="evenodd"
 								fill="url(#grad1)"
 							/>
