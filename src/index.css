@@ -6,7 +6,7 @@
 	--canvas-color: #F2F2F2;
 	--card-color: #ffffff;
 	--text-color: #181818;
-	--border-color: #e2e8f0;
+	--border-color: #ECECEC;
 }
 
 @media (prefers-color-scheme: dark) {

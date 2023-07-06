@@ -12,5 +12,6 @@ module.exports = {
 	rules: {
 		"react-refresh/only-export-components": "warn",
 		"react/prop-types": 0,
+		"no-mixed-spaces-and-tabs": 0,
 	},
 };
