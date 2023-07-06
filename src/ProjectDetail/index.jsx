@@ -186,7 +186,10 @@ const ProjectDetail = () => {
 	};
 
 	const handlePlay = async () => {
-		if (animator.animations?.length) animator.animations = [];
+		if (animator.animations?.length) {
+			animator.animations.forEach((a) => a.complete());
+			animator.animations = [];
+		}
 
 		const sequence = [
 			...scenes
