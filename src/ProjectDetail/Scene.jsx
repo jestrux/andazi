@@ -40,7 +40,7 @@ const Scene = ({ image, text, clip, hidden, onInit }) => {
 		<div className="absolute inset-6" style={{ opacity: hidden ? 0 : "" }}>
 			<div
 				ref={scope}
-				className="bg-card shadow-xl rounded-lg h-full w-full relative overflow-hidden"
+				className="rounded-lg h-full w-full relative overflow-hidden"
 			>
 				<div id="image" className="absolute inset-0">
 					<svg

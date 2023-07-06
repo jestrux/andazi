@@ -86,15 +86,17 @@ const ProjectDetail = () => {
 				</div>
 			</div>
 
-			<div className="flex-1 flex items-stretch bg-canvas overflow-auto p-6 relative">
-				{scenes.map((scene, i) => (
-					<Scene
-						key={i}
-						{...scene}
-						hidden={currentScene < i}
-						onInit={(fn) => handleAddAnimator(i, fn)}
-					/>
-				))}
+			<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
+				<div className="bg-card shadow-xl rounded-lg h-full w-full relative overflow-hidden">
+					{scenes.map((scene, i) => (
+						<Scene
+							key={i}
+							{...scene}
+							hidden={currentScene < i}
+							onInit={(fn) => handleAddAnimator(i, fn)}
+						/>
+					))}
+				</div>
 			</div>
 
 			<div className="bottom-nav">
@@ -115,7 +117,10 @@ const ProjectDetail = () => {
 						className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center"
 						onClick={handlePlay}
 					>
-						<svg className={`${!playing && 'ml-0.5'} mt-px h-6`} viewBox="0 0 24 24">
+						<svg
+							className={`${!playing && "ml-0.5"} mt-px h-6`}
+							viewBox="0 0 24 24"
+						>
 							<defs>
 								<linearGradient
 									id="grad1"
