@@ -87,7 +87,7 @@ const ProjectDetail = () => {
 			</div>
 
 			<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
-				<div className="bg-card shadow-xl rounded-lg h-full w-full relative overflow-hidden">
+				<div className="bg-card shadow-xl h-full w-full relative overflow-hidden">
 					{scenes.map((scene, i) => (
 						<Scene
 							key={i}
