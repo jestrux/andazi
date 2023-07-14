@@ -1,11 +1,17 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import BackToProjectButton from "../components/backToProjectButton";
+import { motion } from "framer-motion";
 
 const SceneEditor = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="z-50 fixed inset-0 bottom-0 flex flex-col justify-end">
+		<motion.div
+			initial={{ opacity: 0, y: 10 }}
+			animate={{ opacity: 1, y: 0 }}
+			exit={{ opacity: 0, y: 10 }}
+			className="z-50 fixed inset-0 bottom-0 flex flex-col justify-end"
+		>
 			<div
 				className="absolute inset-0 bg-black/10"
 				onClick={() => navigate("/")}
@@ -20,7 +26,7 @@ const SceneEditor = () => {
 
 				<Outlet />
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 
