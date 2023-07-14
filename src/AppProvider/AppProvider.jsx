@@ -17,8 +17,6 @@ export default function AppProvider({ children }) {
 	);
 
 	const updateSelectedScene = (newValues = {}) => {
-		console.log("New values: ", newValues);
-
 		setProject((p) => {
 			return {
 				...p,
@@ -39,8 +37,6 @@ export default function AppProvider({ children }) {
 	const clearAnimations = () => {
 		if (animator.animations?.length) {
 			animator.animations.forEach((a) => a.cancel());
-
-			// animator.animations.forEach((a) => a.complete());
 			animator.animations = [];
 		}
 	};
