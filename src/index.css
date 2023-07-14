@@ -51,8 +51,6 @@
 html,
 body {
 	overflow: hidden;
-	background: var(--card-color);
-	color: var(--text-color);
 }
 
 * {

@@ -1,8 +1,8 @@
-import { useProjectContext } from "../ProjectContext";
+import { useAppContext } from "../../AppProvider";
 import BackToProjectButton from "../backToProjectButton";
 
 export default function MusicMenu() {
-	const { project } = useProjectContext();
+	const { project } = useAppContext();
 
 	if (!project) return;
 

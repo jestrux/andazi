@@ -6,7 +6,10 @@ const Scene = ({ id, image, text, className, hideText }) => {
 			<div className="rounded-lg h-full w-full relative overflow-hidden">
 				<img
 					id="image"
-					className="w-full h-full rounded-lg object-cover"
+					className={`w-full h-full rounded-lg object-cover
+						${image.filter == "grayscale" && "grayscale"}
+						${image.filter == "sepia" && "sepia"}
+					`}
 					src={image.url}
 					alt=""
 				/>

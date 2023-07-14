@@ -2,15 +2,17 @@ import { createContext, useContext } from "react";
 
 export const ProjectContext = createContext({
 	project: null,
-	onScenesScreen: false,
 	scenes: [],
+	currentScreen: null,
+	setCurrentScreen: () => {},
 	selectedScene: null,
 	setSelectedScene: () => {},
+	updateSelectedScene: () => {},
 	playing: false,
 	togglePlay: () => {},
 	animator: null,
 });
 
-export const useProjectContext = () => {
+export const useAppContext = () => {
 	return useContext(ProjectContext);
 };

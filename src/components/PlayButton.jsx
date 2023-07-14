@@ -1,12 +1,11 @@
-import Scene from "../Scene";
-import { useProjectContext } from "../ProjectContext";
+import { useAppContext } from "../AppProvider";
 
-export const PlayButton = () => {
-	const { togglePlay, playing } = useProjectContext();
+export default function PlayButton() {
+	const { togglePlay, playing } = useAppContext();
 
 	return (
 		<button
-			className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center"
+			className="mt-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center"
 			onClick={togglePlay}
 		>
 			<svg
@@ -51,27 +50,4 @@ export const PlayButton = () => {
 			</svg>
 		</button>
 	);
-};
-
-export const Stage = () => {
-	const { project, animator } = useProjectContext();
-	const scenes = project?.scenes || [];
-
-	return (
-		<div
-			ref={animator}
-			className="bg-card shadow-xl h-full w-full relative overflow-hidden"
-		>
-			{scenes.map((scene, i) => (
-				<Scene
-					key={i}
-					{...scene}
-					hideText
-					className={`absolute inset-6 ${
-						i == 0 ? "first-scene" : "opacity-0"
-					}`}
-				/>
-			))}
-		</div>
-	);
-};
+}

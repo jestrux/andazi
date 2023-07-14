@@ -1,18 +1,40 @@
 import { useEffect, useState } from "react";
-import { ProjectContext } from "./index";
-import sampleProject from "../../sample-project";
-import { useLocation } from "react-router-dom";
+import { ProjectContext } from "./";
+import sampleProject from "./sample-project";
 import { useAnimate } from "framer-motion";
-import sequencer from "../Player/sequencer";
+import sequencer from "./sequencer";
 
-export default function ProjectProvider({ children }) {
+export default function AppProvider({ children }) {
 	const [animator, animate] = useAnimate();
 	const [playing, setPlaying] = useState(false);
-	const { state, pathname } = useLocation();
-	const [project] = useState(state?.project || sampleProject);
-	const onScenesScreen = pathname.includes("scenes");
-	const [_selectedSceneIndex, setSelectedScene] = useState(0);
-	const selectedScene = project?.scenes?.[_selectedSceneIndex];
+	const [currentScreen, setCurrentScreen] = useState("/");
+	const [project, setProject] = useState(sampleProject);
+	const [selectedSceneId, setSelectedScene] = useState(
+		project?.scenes?.[0].id
+	);
+	const selectedScene = project?.scenes?.find(
+		({ id }) => id == selectedSceneId
+	);
+
+	const updateSelectedScene = (newValues = {}) => {
+		console.log("New values: ", newValues);
+
+		setProject((p) => {
+			return {
+				...p,
+				scenes: p.scenes.map((scene) => {
+					if (scene.id == selectedSceneId) {
+						return {
+							...scene,
+							...newValues,
+						};
+					}
+
+					return scene;
+				}),
+			};
+		});
+	};
 
 	const clearAnimations = () => {
 		if (animator.animations?.length) {
@@ -49,24 +71,22 @@ export default function ProjectProvider({ children }) {
 		setPlaying(false);
 	};
 
-	const togglePlay = () => {
-		if (playing) return stop();
-
-		play();
-	};
+	const togglePlay = playing ? stop : play;
 
 	useEffect(() => {
 		stop();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [project, pathname]);
+	}, [project, currentScreen]);
 
 	return (
 		<ProjectContext.Provider
 			value={{
 				project,
-				onScenesScreen,
+				currentScreen,
+				setCurrentScreen,
 				selectedScene,
 				setSelectedScene,
+				updateSelectedScene,
 				playing,
 				togglePlay,
 				animator,
