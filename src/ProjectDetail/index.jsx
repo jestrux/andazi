@@ -1,14 +1,13 @@
 import { ArrowUpTrayIcon, ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { Outlet, useNavigate } from "react-router-dom";
 import Scene from "./Scene";
-import usePlayer from "./usePlayer";
+import { Stage } from "./Player";
 import ProjectProvider from "./ProjectContext/provider";
 import { useProjectContext } from "./ProjectContext";
 
 const ProjectDetailContent = () => {
 	const { onScenesScreen, selectedScene } = useProjectContext();
 	const navigate = useNavigate();
-	const { Stage } = usePlayer();
 
 	const handleShare = async () => {
 		// try {
@@ -47,7 +46,13 @@ const ProjectDetailContent = () => {
 			</div>
 
 			<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
-				<div className="bg-card shadow-xl h-full w-full relative overflow-hidden">
+				<Stage />
+
+				<div
+					className={`${
+						!onScenesScreen && "opacity-0 pointer-events-none"
+					}  z-10 bg-card shadow-xl h-full w-full absolute overflow-hidden`}
+				>
 					{selectedScene && (
 						<Scene
 							key={selectedScene.id}
@@ -55,14 +60,6 @@ const ProjectDetailContent = () => {
 							className="absolute inset-6 border rounded-md"
 						/>
 					)}
-				</div>
-
-				<div
-					className={`absolute inset-0 z-10 ${
-						!onScenesScreen && "opacity-0 pointer-events-none"
-					}`}
-				>
-					{Stage()}
 				</div>
 			</div>
 

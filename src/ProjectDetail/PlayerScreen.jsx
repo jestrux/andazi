@@ -1,19 +1,14 @@
-import { useState } from "react";
 import {
 	MusicalNoteIcon,
 	RectangleStackIcon,
 } from "@heroicons/react/24/outline";
-import sampleProject from "../sample-project";
-import usePlayer from "./usePlayer";
+import { Stage, PlayButton } from "./Player";
 
-export default function PlayerScreen({ project }) {
-	const [scenes] = useState((project || sampleProject)?.scenes);
-	const { Stage, PlayButton } = usePlayer(scenes);
-
+export default function PlayerScreen() {
 	return (
 		<>
 			<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
-				{Stage()}
+				<Stage />
 			</div>
 
 			<div className="bottom-nav">
@@ -31,7 +26,7 @@ export default function PlayerScreen({ project }) {
 						</span>
 					</button> */}
 
-					{PlayButton()}
+					<PlayButton />
 
 					<button className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0">
 						<MusicalNoteIcon width={20} />

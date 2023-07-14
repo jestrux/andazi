@@ -7,7 +7,7 @@ export default function SceneMenu() {
 	if (!project) return;
 
 	return (
-		<div className="bg-card shadow border relative rounded-t-2xl">
+		<div className="bg-card border-t relative rounded-t-2xl">
 			<div className="pl-4 pr-2 mt-2 flex items-center justify-between">
 				<h3 className="text-lg/none font-bold">Scenes</h3>
 				<BackToProjectButton />

@@ -6,6 +6,9 @@ export const ProjectContext = createContext({
 	scenes: [],
 	selectedScene: null,
 	setSelectedScene: () => {},
+	playing: false,
+	togglePlay: () => {},
+	animator: null,
 });
 
 export const useProjectContext = () => {

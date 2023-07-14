@@ -1,54 +1,13 @@
-import { useAnimate } from "framer-motion";
 import Scene from "../Scene";
-import { useEffect, useState } from "react";
-import sequencer from "./sequencer";
 import { useProjectContext } from "../ProjectContext";
 
-export default function usePlayer() {
-	const { project } = useProjectContext();
-	const scenes = project?.scenes || [];
-	const [animator, animate] = useAnimate();
-	const [playing, setPlaying] = useState(false);
+export const PlayButton = () => {
+	const { togglePlay, playing } = useProjectContext();
 
-	useEffect(() => {
-		if (playing && animator.animations?.length)
-			return animator.animations[0].cancel();
-
-		setPlaying(false);
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [project]);
-
-	const handlePlay = async () => {
-		if (playing && animator.animations?.length)
-			return animator.animations[0].cancel();
-
-		if (animator.animations?.length) {
-			animator.animations.forEach((a) => a.complete());
-			animator.animations = [];
-		}
-
-		const sequence = [
-			...scenes
-				.map((scene, index) =>
-					sequencer({
-						scene,
-						index,
-						lastSceneDuration: scenes[index - 1]?.duration,
-					})
-				)
-				.flat(),
-			[".first-scene", { opacity: 1 }, { duration: 0.000001, at: "<" }],
-		];
-
-		setPlaying(true);
-		animate(sequence).then(() => setPlaying(false));
-	};
-
-	const PlayButton = () => (
+	return (
 		<button
 			className="mb-0.5 mx-3 flex h-12 aspect-square rounded-full shadow-lg bg-white/5 border border-neutral-200/50 dark:border-white/5 items-center justify-center"
-			onClick={handlePlay}
+			onClick={togglePlay}
 		>
 			<svg
 				className={`${!playing && "ml-0.5"} mt-px h-6`}
@@ -92,8 +51,13 @@ export default function usePlayer() {
 			</svg>
 		</button>
 	);
+};
 
-	const Stage = () => (
+export const Stage = () => {
+	const { project, animator } = useProjectContext();
+	const scenes = project?.scenes || [];
+
+	return (
 		<div
 			ref={animator}
 			className="bg-card shadow-xl h-full w-full relative overflow-hidden"
@@ -110,9 +74,4 @@ export default function usePlayer() {
 			))}
 		</div>
 	);
-
-	return {
-		Stage,
-		PlayButton,
-	};
-}
+};

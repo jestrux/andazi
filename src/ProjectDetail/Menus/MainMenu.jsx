@@ -3,11 +3,9 @@ import {
 	MusicalNoteIcon,
 	RectangleStackIcon,
 } from "@heroicons/react/24/outline";
-import usePlayer from "../usePlayer";
+import { PlayButton } from "../Player";
 
 export default function MainMenu() {
-	const { PlayButton } = usePlayer();
-
 	return (
 		<div className="h-full py-1 bg-card border-t flex items-center justify-between gap-3">
 			<Link
@@ -26,7 +24,7 @@ export default function MainMenu() {
 						</span>
 					</button> */}
 
-			{PlayButton()}
+			<PlayButton />
 
 			<Link
 				to="music"
