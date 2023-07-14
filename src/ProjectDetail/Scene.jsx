@@ -1,8 +1,8 @@
-const Scene = ({ id, image, text, className }) => {
+const Scene = ({ id, image, text, className, hideText }) => {
 	const textPlacement = text?.placement || "top";
 
 	return (
-		<div id={id} className={`absolute inset-6 ${className}`}>
+		<div id={id} className={`${className}`}>
 			<div className="rounded-lg h-full w-full relative overflow-hidden">
 				<img
 					id="image"
@@ -24,7 +24,12 @@ const Scene = ({ id, image, text, className }) => {
 						}}
 					>
 						{text.content.split("\n").map((text, i) => (
-							<li key={i} className="relative p-3 px-4 opacity-0">
+							<li
+								key={i}
+								className={`relative p-3 px-4 ${
+									hideText && "opacity-0"
+								}`}
+							>
 								<div className="absolute inset-0 bg-black origin-bottom-left rounded skew-x-6"></div>
 								<strong className="relative text-white inline-flex gap-2">
 									{text.split(" ").map((t, i) => (
