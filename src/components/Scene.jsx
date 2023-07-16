@@ -1,9 +1,17 @@
-import { useLocation } from "react-router-dom";
 import { parseColor } from "../utils";
+import { useAppContext } from "../AppProvider";
 
 const Scene = ({ id, background, image, text, className, hideText }) => {
-	const { pathname } = useLocation();
+	const { writingText } = useAppContext();
 	const textPlacement = text.placement || "top";
+	const filled = ["filled", "inverted"].includes(text.style);
+	const inverted = text.style == "inverted";
+	const backgroundColor = !filled
+		? "transparent"
+		: inverted
+		? "white"
+		: "black";
+	const textColor = !filled || !inverted ? "white" : "black";
 
 	return (
 		<div id={id} className={`${className}`}>
@@ -26,19 +34,17 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 					/>
 				</div>
 
-				{pathname.indexOf("edit-text") == -1 && text && (
+				{!writingText && text && (
 					<ul
 						className={`${
-							text.background == "transparent"
-								? "-space-y-1"
-								: "gap-1"
+							!filled ? "-space-y-3" : "gap-2"
 						} absolute inset-x-2 text-3xl/none tracking-wide font-bold flex flex-col items-center justify-center`}
 						style={{
 							top: ["center", "top"].includes(textPlacement)
-								? 24
+								? 60
 								: "",
 							bottom: ["center", "bottom"].includes(textPlacement)
-								? 24
+								? 60
 								: "",
 						}}
 					>
@@ -51,16 +57,19 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 							>
 								<div
 									className="absolute inset-0 origin-bottom-left rounded skew-x-6 bg-black"
-									style={{ background: text.background }}
+									style={{
+										background: backgroundColor,
+									}}
 								></div>
 								<strong
 									className="relative inline-flex gap-2 text-white"
 									style={{
-										color: text.color,
-										WebkitTextFillColor: text.outline
-											? "transparent"
-											: text.color,
-										WebkitTextStroke: `1px ${text.color}`,
+										color: textColor,
+										WebkitTextFillColor:
+											text.style == "outline"
+												? "transparent"
+												: textColor,
+										WebkitTextStroke: `1px ${textColor}`,
 									}}
 								>
 									{_text.split(" ").map((t, i) => (

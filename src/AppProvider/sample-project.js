@@ -12,10 +12,9 @@ export default {
 			},
 			text: {
 				content: "AUTUMN'S BAACK!!!",
+				placement: "top",
+				style: "filled",
 				animation: "type",
-				background: "black",
-				color: "white",
-				// outline: true,
 			},
 		},
 		{
@@ -24,10 +23,8 @@ export default {
 			text: {
 				content: "WITH FLOWERS\nAND SUN",
 				placement: "bottom",
+				style: "inverted",
 				animation: "swipe",
-				background: "white",
-				color: "black",
-				// outline: true,
 			},
 			image: {
 				show: true,
@@ -46,10 +43,8 @@ export default {
 			text: {
 				content: "LET'S HAVE US\nSOME FUN",
 				placement: "center",
-				// animation: "swipe",
-				background: "transparent",
-				color: "white",
-				outline: true,
+				style: "outline",
+				animation: "slide",
 			},
 			clip: "circle",
 		},

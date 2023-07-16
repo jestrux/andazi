@@ -14,13 +14,15 @@ import SceneEditor from "./SceneEditor";
 import ImageEditor from "./SceneEditor/ImageEditor";
 import BackgroundEditor from "./SceneEditor/BackgroundEditor";
 import TextEditor from "./SceneEditor/TextEditor";
-import BottomNav from "./components/BottomNav";
-import SceneMenu from "./components/BottomNav/SceneMenu";
+import SceneMenu from "./components/SceneMenu";
+import MainMenu from "./components/MainMenu";
+import MusicMenu from "./components/MusicMenu";
 
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
-			<Route index element={<BottomNav />} />
+			<Route index element={<MainMenu />} />
+			<Route path="music" element={<MusicMenu />} />
 			<Route path="scenes" element={<SceneMenu />}>
 				<Route path=":sceneId" element={<SceneEditor />}>
 					<Route

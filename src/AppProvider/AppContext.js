@@ -3,8 +3,8 @@ import { createContext, useContext } from "react";
 export const ProjectContext = createContext({
 	project: null,
 	scenes: [],
-	currentScreen: null,
-	setCurrentScreen: () => {},
+	writingText: false,
+	setWritingText: () => {},
 	selectedScene: null,
 	setSelectedScene: () => {},
 	updateSelectedScene: () => {},

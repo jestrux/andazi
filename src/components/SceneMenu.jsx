@@ -1,7 +1,7 @@
 import { Link, Outlet, useParams } from "react-router-dom";
-import { useAppContext } from "../../AppProvider";
-import BottomSheet from "../BottomSheet";
-import { parseColor } from "../../utils";
+import { useAppContext } from "../AppProvider";
+import BottomSheet from "./BottomSheet";
+import { parseColor } from "../utils";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export default function SceneMenu() {

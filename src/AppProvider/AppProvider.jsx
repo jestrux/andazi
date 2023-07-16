@@ -10,7 +10,7 @@ export default function AppProvider({ children }) {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [playing, setPlaying] = useState(false);
-	const [currentScreen, setCurrentScreen] = useState("/");
+	const [writingText, setWritingText] = useState(false);
 	const [project, setProject] = useState(sampleProject);
 	const [selectedSceneId, setSelectedScene] = useState(
 		project?.scenes?.[0].id
@@ -73,16 +73,17 @@ export default function AppProvider({ children }) {
 	const togglePlay = playing ? stop : play;
 
 	// const closeBottomSheet = () =>
-	// 	sceneId ? navigate("/", { replace: true }) : setCurrentScreen("/");
+	// 	sceneId ? navigate("/", { replace: true }) : setWritingText("/");
 	const closeBottomSheet = () => {
-		console.log("Path: ", pathname);
-		navigate(pathname == "/scenes" ? "/" : "/scenes", { replace: true });
+		navigate(["/scenes", "/music"].includes(pathname) ? "/" : "/scenes", {
+			replace: true,
+		});
 	};
 
 	useEffect(() => {
 		stop();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [project, currentScreen]);
+	}, [project, writingText]);
 
 	useEffect(() => {
 		if (pathname.indexOf("scenes") == -1)
@@ -95,8 +96,8 @@ export default function AppProvider({ children }) {
 		<ProjectContext.Provider
 			value={{
 				project,
-				currentScreen,
-				setCurrentScreen,
+				writingText,
+				setWritingText,
 				selectedScene,
 				setSelectedScene,
 				updateSelectedScene,
