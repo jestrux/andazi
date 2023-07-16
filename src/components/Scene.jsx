@@ -41,7 +41,7 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 						} absolute inset-x-2 text-3xl/none tracking-wide font-bold flex flex-col items-center justify-center`}
 						style={{
 							top: ["center", "top"].includes(textPlacement)
-								? 60
+								? 40
 								: "",
 							bottom: ["center", "bottom"].includes(textPlacement)
 								? 60

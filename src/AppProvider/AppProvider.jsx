@@ -4,12 +4,15 @@ import sampleProject from "./sample-project";
 import { useAnimate } from "framer-motion";
 import sequencer from "./sequencer";
 import { useLocation, useNavigate } from "react-router-dom";
+import useMusic from "../useMusic";
 
 export default function AppProvider({ children }) {
 	const [animator, animate] = useAnimate();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const [playing, setPlaying] = useState(false);
+	const [musicTrack, setMusicTrack] = useState(null);
+	const { playing: playingMusic, playMusic, stopMusic } = useMusic();
 	const [writingText, setWritingText] = useState(false);
 	const [project, setProject] = useState(sampleProject);
 	const [selectedSceneId, setSelectedScene] = useState(
@@ -62,12 +65,14 @@ export default function AppProvider({ children }) {
 		];
 
 		setPlaying(true);
-		animate(sequence).then(() => setPlaying(false));
+		if(musicTrack) playMusic(musicTrack);
+		animate(sequence).then(() => stop());
 	};
 
 	const stop = () => {
 		clearAnimations();
 		setPlaying(false);
+		stopMusic();
 	};
 
 	const togglePlay = playing ? stop : play;
@@ -98,6 +103,11 @@ export default function AppProvider({ children }) {
 				project,
 				writingText,
 				setWritingText,
+				musicTrack,
+				setMusicTrack,
+				playingMusic,
+				playMusic,
+				stopMusic,
 				selectedScene,
 				setSelectedScene,
 				updateSelectedScene,
