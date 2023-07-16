@@ -1,4 +1,5 @@
 import { useAppContext } from "../AppProvider";
+import BottomSheet from "../components/BottomSheet";
 
 const ImageEditor = () => {
 	const { selectedScene, updateSelectedScene } = useAppContext();
@@ -15,7 +16,7 @@ const ImageEditor = () => {
 	};
 
 	return (
-		<div className="">
+		<BottomSheet>
 			<h3 className="mb-4 text-lg/none font-semibold ml-0.5">
 				Edit image
 			</h3>
@@ -33,7 +34,7 @@ const ImageEditor = () => {
 					</button>
 				))}
 			</div>
-		</div>
+		</BottomSheet>
 	);
 };
 

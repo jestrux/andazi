@@ -1,7 +1,8 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { useAppContext } from "../../AppProvider";
-import BackToProjectButton from "../backToProjectButton";
-import { motion } from "framer-motion";
+import BottomSheet from "../BottomSheet";
+import { parseColor } from "../../utils";
+import { PhotoIcon } from "@heroicons/react/24/outline";
 
 export default function SceneMenu() {
 	const { sceneId } = useParams();
@@ -10,43 +11,11 @@ export default function SceneMenu() {
 	return (
 		<>
 			{!sceneId && (
-				<motion.div
-					initial={{ opacity: 0, y: 10 }}
-					animate={{ opacity: 1, y: 0 }}
-					exit={{ opacity: 0, y: 10 }}
-					className="bg-card border-t relative rounded-t-2xl"
-				>
-					<div className="absolute right-2 top-2">
-						<BackToProjectButton />
-					</div>
-
-					<div className="border-b p-4 flex items-center gap-3">
-						<Link
-							className="py-1 px-3 border rounded"
-							to={`${selectedScene.id}/edit-background`}
-						>
-							Background
-						</Link>
-
-						<Link
-							className="py-1 px-3 border rounded"
-							to={`${selectedScene.id}/edit-image`}
-						>
-							Image
-						</Link>
-
-						<Link
-							className="py-1 px-3 border rounded"
-							to={`${selectedScene.id}/edit-text`}
-						>
-							Text
-						</Link>
-					</div>
-
-					<div className="p-3 flex items-center gap-3">
+				<BottomSheet>
+					<div className="flex items-center gap-1.5">
 						{project.scenes.map((scene, index) => (
 							<button
-								className={`py-1 px-3 border rounded
+								className={`h-12 flex items-center justify-center px-5 border-2 rounded-md
 						${selectedScene?.id == scene.id ? "bg-content text-card" : ""}
 						`}
 								to={index + 1}
@@ -57,8 +26,36 @@ export default function SceneMenu() {
 							</button>
 						))}
 					</div>
-				</motion.div>
+
+					<div className="mt-3 flex items-center gap-5">
+						<Link
+							className="ml-px w-9 h-9 rounded-full border-2"
+							to={`${selectedScene.id}/edit-background`}
+							style={{
+								background: parseColor(
+									selectedScene.background
+								),
+							}}
+						></Link>
+
+						<Link
+							className="h-9 w-10 flex items-center justify-center border bg-content/5 rounded"
+							to={`${selectedScene.id}/edit-image`}
+						>
+							<PhotoIcon className="w-6" strokeWidth={2} />
+						</Link>
+
+						<Link
+							className="h-9 w-10 flex items-center justify-center border bg-content/5 rounded"
+							to={`${selectedScene.id}/edit-text`}
+						>
+							<span className="text-2xl/none font-medium">A</span>
+						</Link>
+					</div>
+				</BottomSheet>
 			)}
+
+			<Outlet />
 		</>
 	);
 }

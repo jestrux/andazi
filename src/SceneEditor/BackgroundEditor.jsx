@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from "../AppProvider";
-import ColorPicker from "../components/ColorPicker";
 import GradientPicker from "../components/GradientPicker";
 import { parseColor } from "../utils";
+import BottomSheet from "../components/BottomSheet";
 
 const BackgroundEditor = () => {
 	const { selectedScene, updateSelectedScene } = useAppContext();
@@ -40,15 +40,37 @@ const BackgroundEditor = () => {
 	}, [colorType]);
 
 	return (
-		<div className="">
+		<BottomSheet>
 			<h3 className="mb-4 text-lg/none font-semibold ml-0.5">
 				Edit background
 			</h3>
 
-			<div className="mb-3 flex items-center gap-3">
+			<div className="mt-5">
+				{colorType == "Solid Color" ? (
+					<div
+						className="relative block rounded border p-1.5"
+						style={{ height: "48px" }}
+					>
+						<label
+							className="block h-full rounded-sm"
+							style={{ background: value }}
+						>
+							<input
+								type="color"
+								className="absolute top-0 opacity-0 pointer-events-none"
+								onChange={(e) => handleChange(e.target.value)}
+							/>
+						</label>
+					</div>
+				) : (
+					<GradientPicker value={value} onChange={handleChange} />
+				)}
+			</div>
+
+			<div className="-mb-4 mt-4 flex items-center justify-center">
 				{["Solid Color", "Gradient"].map((type, index) => (
 					<button
-						className={`py-1 px-3 border rounded
+						className={`h-8 px-4 text-sm font-semibold rounded-full
 						${colorType == type ? "bg-content text-card" : ""}
 						`}
 						to={index + 1}
@@ -59,19 +81,7 @@ const BackgroundEditor = () => {
 					</button>
 				))}
 			</div>
-
-			<div className="mb-8">
-				{colorType == "Solid Color" ? (
-					<ColorPicker
-						className="text-black"
-						value={value}
-						onChange={handleChange}
-					/>
-				) : (
-					<GradientPicker value={value} onChange={handleChange} />
-				)}
-			</div>
-		</div>
+		</BottomSheet>
 	);
 };
 

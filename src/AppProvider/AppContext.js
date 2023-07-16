@@ -11,6 +11,7 @@ export const ProjectContext = createContext({
 	playing: false,
 	togglePlay: () => {},
 	animator: null,
+	closeBottomSheet: () => {},
 });
 
 export const useAppContext = () => {

@@ -3,9 +3,12 @@ import { ProjectContext } from "./";
 import sampleProject from "./sample-project";
 import { useAnimate } from "framer-motion";
 import sequencer from "./sequencer";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AppProvider({ children }) {
 	const [animator, animate] = useAnimate();
+	const navigate = useNavigate();
+	const { pathname } = useLocation();
 	const [playing, setPlaying] = useState(false);
 	const [currentScreen, setCurrentScreen] = useState("/");
 	const [project, setProject] = useState(sampleProject);
@@ -69,10 +72,24 @@ export default function AppProvider({ children }) {
 
 	const togglePlay = playing ? stop : play;
 
+	// const closeBottomSheet = () =>
+	// 	sceneId ? navigate("/", { replace: true }) : setCurrentScreen("/");
+	const closeBottomSheet = () => {
+		console.log("Path: ", pathname);
+		navigate(pathname == "/scenes" ? "/" : "/scenes", { replace: true });
+	};
+
 	useEffect(() => {
 		stop();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [project, currentScreen]);
+
+	useEffect(() => {
+		if (pathname.indexOf("scenes") == -1)
+			setSelectedScene(project?.scenes?.[0].id);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [pathname]);
 
 	return (
 		<ProjectContext.Provider
@@ -86,6 +103,7 @@ export default function AppProvider({ children }) {
 				playing,
 				togglePlay,
 				animator,
+				closeBottomSheet,
 			}}
 		>
 			{children}

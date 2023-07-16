@@ -56,13 +56,6 @@ export default function GradientPicker(props) {
 	const [, setColor] = useState(valueProp);
 	const [shiftHeld, setShiftHeld] = useState(false);
 	const [_value, setValue] = useState(valueProp);
-	const valueString =
-		Array.isArray(_value) &&
-		_value
-			.map((color, idx) => {
-				return `${color} ${(idx * 100) / (_value.length - 1)}%`;
-			})
-			.join(", ");
 
 	const onChange = (color) => {
 		setColor(color);
@@ -109,106 +102,85 @@ export default function GradientPicker(props) {
 
 	return (
 		<div
-			className="w-full rounded-lg border overflow-hidden flex"
-			style={{ height: "290px" }}
+			className="p-1.5 border rounded flex items-center justify-between"
+			style={{ height: "48px" }}
 		>
-			<div className="flex-1 rounded flex flex-col overflow-hidden">
-				<div
-					className="m-3 flex-1 rounded border-gray"
-					style={{
-						background: `linear-gradient(90deg, ${valueString})`,
-					}}
-				></div>
+			{Array.isArray(_value) &&
+				_value.map((color, index) => {
+					const label = (color, index) => {
+						const removeMidColor = _value.length == 3 && index == 1;
 
-				<div
-					className="border-t p-3 flex items-center justify-between"
-					style={{ height: "48px" }}
-				>
-					{Array.isArray(_value) &&
-						_value.map((color, index) => {
-							const label = (color, index) => {
-								const removeMidColor =
-									_value.length == 3 && index == 1;
-								// && shiftHeld;
+						return (
+							<motion.label
+								drag="x"
+								dragConstraints={{
+									left: 0,
+									right: 0,
+								}}
+								dragElastic={removeMidColor ? 0.05 : 0}
+								onPanEnd={
+									removeMidColor
+										? () => updateColor("remove")
+										: null
+								}
+								onClick={
+									removeMidColor && shiftHeld
+										? (e) => {
+												e.preventDefault();
+												updateColor("remove");
+										  }
+										: null
+								}
+								className="cursor-pointer h-full aspect-video rounded-md border flex items-center justify-center"
+								style={{
+									background: index == "new" ? "" : color,
+								}}
+							>
+								<input
+									className="absolute opacity-0"
+									style={{
+										width: 0,
+										height: 0,
+									}}
+									type="color"
+									value={color}
+									name={index}
+									onChange={updateColor}
+								/>
 
-								return (
-									<motion.label
-										// drag={removeMidColor ? "x" : false}
-										drag="x"
-										dragConstraints={{
-											left: 0,
-											right: 0,
-										}}
-										dragElastic={removeMidColor ? 0.05 : 0}
-										onPanEnd={
-											removeMidColor
-												? () => updateColor("remove")
-												: null
-										}
-										onClick={
-											removeMidColor && shiftHeld
-												? (e) => {
-														e.preventDefault();
-														updateColor("remove");
-												  }
-												: null
-										}
-										className="cursor-pointer h-full aspect-video rounded-sm border flex items-center justify-center"
-										style={{
-											background:
-												index == "new" ? "" : color,
-										}}
+								{(index == "new" || removeMidColor) && (
+									<svg
+										className="opacity-50"
+										width={12}
+										fill="none"
+										viewBox="0 0 24 24"
+										strokeWidth={3}
+										stroke="currentColor"
 									>
-										<input
-											className="absolute opacity-0"
-											style={{
-												width: 0,
-												height: 0,
-											}}
-											type="color"
-											value={color}
-											name={index}
-											onChange={updateColor}
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d={
+												index == "new"
+													? "M12 4.5v15m7.5-7.5h-15"
+													: "M19.5 12h-15"
+											}
 										/>
+									</svg>
+								)}
+							</motion.label>
+						);
+					};
 
-										{(index == "new" || removeMidColor) && (
-											<svg
-												className="opacity-50"
-												width={12}
-												fill="none"
-												viewBox="0 0 24 24"
-												strokeWidth={3}
-												stroke="currentColor"
-											>
-												<path
-													strokeLinecap="round"
-													strokeLinejoin="round"
-													d={
-														index == "new"
-															? "M12 4.5v15m7.5-7.5h-15"
-															: "M19.5 12h-15"
-													}
-												/>
-											</svg>
-										)}
-									</motion.label>
-								);
-							};
-
-							return (
-								<Fragment key={index}>
-									{label(color, index)}
-									{index == 0 &&
-										_value.length == 2 &&
-										label(
-											hexAverage(_value[0], _value[1]),
-											"new"
-										)}
-								</Fragment>
-							);
-						})}
-				</div>
-			</div>
+					return (
+						<Fragment key={index}>
+							{label(color, index)}
+							{index == 0 &&
+								_value.length == 2 &&
+								label(hexAverage(_value[0], _value[1]), "new")}
+						</Fragment>
+					);
+				})}
 		</div>
 	);
 }

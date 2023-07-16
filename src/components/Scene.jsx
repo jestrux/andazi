@@ -1,6 +1,8 @@
+import { useLocation } from "react-router-dom";
 import { parseColor } from "../utils";
 
 const Scene = ({ id, background, image, text, className, hideText }) => {
+	const { pathname } = useLocation();
 	const textPlacement = text.placement || "top";
 
 	return (
@@ -24,7 +26,7 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 					/>
 				</div>
 
-				{text && (
+				{pathname.indexOf("edit-text") == -1 && text && (
 					<ul
 						className={`${
 							text.background == "transparent"

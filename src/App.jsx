@@ -1,11 +1,11 @@
-import { useAppContext } from "./AppProvider";
+import AppProvider, { useAppContext } from "./AppProvider";
 import Scene from "./components/Scene";
-import BottomNav from "./components/BottomNav";
 import Stage from "./components/Stage";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
-	const { currentScreen, selectedScene } = useAppContext();
+	const { pathname } = useLocation();
+	const { selectedScene } = useAppContext();
 
 	const handleShare = async () => {
 		// try {
@@ -98,7 +98,7 @@ const App = () => {
 
 					<div
 						className={`${
-							currentScreen == "scenes" &&
+							pathname.indexOf("scenes") != -1 &&
 							"opacity-0 pointer-events-none"
 						}  z-10 absolute inset-0`}
 					>
@@ -106,12 +106,16 @@ const App = () => {
 					</div>
 				</div>
 
-				<BottomNav />
+				<Outlet />
 			</div>
-
-			<Outlet />
 		</>
 	);
 };
 
-export default App;
+export default function AppWrapper() {
+	return (
+		<AppProvider>
+			<App />
+		</AppProvider>
+	);
+}
