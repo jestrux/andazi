@@ -1,6 +1,8 @@
 import { stagger } from "framer-motion";
 
 export const textAnimation = ({ id, text, duration, stagger }) => {
+	if (!text) return [[]];
+
 	if (text?.animation == "type") {
 		return [
 			[
@@ -133,7 +135,7 @@ export default function sequencer({ scene, index, lastSceneDuration }) {
 		}),
 		`image-${index}`,
 		imageAnimation({ id, duration }),
-		...(text ? [...textAnimation({ id, text, duration, stagger })] : []),
+		...textAnimation({ id, text, duration, stagger }),
 		fadeOutAnimation({ id, duration }),
 	];
 }
