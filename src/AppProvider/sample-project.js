@@ -5,6 +5,7 @@ export default {
 	scenes: [
 		{
 			id: "scenebwqn48cp7hp",
+			duration: 6,
 			background: "linear-gradient(90deg, #d53369 0%, #daae51 100%)",
 			image: {
 				show: true,
@@ -19,6 +20,7 @@ export default {
 		},
 		{
 			id: "sceneesiw3bn69k4",
+			duration: 6,
 			background: "#F7ECE3",
 			text: {
 				content: "WITH FLOWERS\nAND SUN",
@@ -34,16 +36,16 @@ export default {
 		},
 		{
 			id: "sceneqw7rrqxnqwe",
-			// background: "#7679EE",
+			duration: 6,
 			background: "linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%)",
 			image: {
-				// show: true,
+				show: false,
 				url: "https://images.unsplash.com/photo-1567584032175-e3605e93b056?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDE0fHxhdXR1bW58ZW58MHx8fHwxNjg4NTQ0MzkzfDA&ixlib=rb-4.0.3&q=80&w=600",
 			},
 			text: {
 				content: "LET'S HAVE US\nSOME FUN",
 				placement: "center",
-				style: "outline",
+				style: "solid",
 				animation: "slide",
 			},
 			clip: "circle",

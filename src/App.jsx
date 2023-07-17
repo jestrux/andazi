@@ -8,15 +8,16 @@ const App = () => {
 	const { selectedScene } = useAppContext();
 
 	const handleShare = async () => {
-		// try {
-		// 	const image = await fetch(project);
-		// 	const blob = await image.blob();
-		// 	const file = new File([blob], "image.jpg", { type: "image/jpeg" });
-		// 	await navigator.share({ files: [file] });
-		// 	console.log("Share was successful.");
-		// } catch (error) {
-		// 	console.log("Sharing failed", error);
-		// }
+		try {
+			const image = await fetch("preview.mp4");
+			// const image = await fetch(project);
+			const blob = await image.blob();
+			const file = new File([blob], "video.mp4", { type: "video/mp4" });
+			await navigator.share({ files: [file] });
+			console.log("Share was successful.");
+		} catch (error) {
+			console.log("Sharing failed", error);
+		}
 	};
 
 	return (

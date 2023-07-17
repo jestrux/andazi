@@ -65,7 +65,8 @@ export default function AppProvider({ children }) {
 		];
 
 		setPlaying(true);
-		if(musicTrack) playMusic(musicTrack);
+		if (musicTrack) playMusic(musicTrack);
+		// window.openFullscreen();
 		animate(sequence).then(() => stop());
 	};
 

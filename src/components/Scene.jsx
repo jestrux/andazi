@@ -2,7 +2,7 @@ import { parseColor } from "../utils";
 import { useAppContext } from "../AppProvider";
 
 const Scene = ({ id, background, image, text, className, hideText }) => {
-	const { writingText } = useAppContext();
+	const { writingText, playing } = useAppContext();
 	const textPlacement = text.placement || "top";
 	const filled = ["filled", "inverted"].includes(text.style);
 	const inverted = text.style == "inverted";
@@ -17,7 +17,10 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 		<div id={id} className={`${className}`}>
 			<div
 				className="rounded-lg h-full w-full relative overflow-hidden"
-				style={{ background: parseColor(background) }}
+				style={{
+					background: parseColor(background),
+					// borderRadius: playing ? 0 : "8px",
+				}}
 			>
 				<div
 					className="h-full w-full"
@@ -41,10 +44,10 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 						} absolute inset-x-2 text-3xl/none tracking-wide font-bold flex flex-col items-center justify-center`}
 						style={{
 							top: ["center", "top"].includes(textPlacement)
-								? 40
+								? 60
 								: "",
 							bottom: ["center", "bottom"].includes(textPlacement)
-								? 60
+								? 160
 								: "",
 						}}
 					>

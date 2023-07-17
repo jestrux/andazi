@@ -32,5 +32,13 @@
 	<body class="bg-card text-content">
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
+		<script>
+			window.openFullscreen = (el = document.querySelector("#root")) => {
+				if (el.requestFullscreen) el.requestFullscreen();
+				else if (el.webkitRequestFullscreen)
+					/* Safari */
+					el.webkitRequestFullscreen();
+			};
+		</script>
 	</body>
 </html>
