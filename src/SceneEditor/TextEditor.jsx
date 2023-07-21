@@ -2,15 +2,16 @@ import { useAppContext } from "../AppProvider";
 import BottomSheet from "../components/BottomSheet";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import ButtonGroup from "../components/ButtonGroup";
-import {
-	Bars3Icon,
-	PaintBrushIcon,
-	SignalIcon,
-} from "@heroicons/react/24/outline";
+import { textAnimation } from "../AppProvider/sequencer";
 
 const TextEditor = () => {
-	const { writingText, setWritingText, selectedScene, updateSelectedScene } =
-		useAppContext();
+	const {
+		writingText,
+		setWritingText,
+		selectedScene,
+		updateSelectedScene,
+		animateEditor,
+	} = useAppContext();
 
 	const updateText = (updatedValue) => {
 		updateSelectedScene({
@@ -28,6 +29,21 @@ const TextEditor = () => {
 		setTimeout(() => {
 			e.target.value = value;
 		});
+	};
+
+	const handleAnimationChanged = (animation) => {
+		animateEditor([
+			...textAnimation({
+				id: "editorScene",
+				text: {
+					...selectedScene.text,
+					animation,
+				},
+				duration: 3,
+			}),
+		]);
+
+		updateText({ animation });
 	};
 
 	return (
@@ -49,58 +65,46 @@ const TextEditor = () => {
 			)}
 
 			<BottomSheet>
-				<div className="mb-5 flex items-center">
-					<button
-						className="border h-8 flex items-center pt-px px-3 text-xs/none font-semibold rounded-full"
-						onClick={() => setWritingText(true)}
-					>
-						Edit Text
-					</button>
+				<div className="flex flex-col gap-2.5 pl-1">
+					<div className="-ml-1 flex items-center">
+						<button
+							className="border h-8 flex items-center pt-px px-3 text-sm/none font-semibold rounded-full"
+							onClick={() => setWritingText(true)}
+						>
+							Edit Text
+						</button>
+					</div>
 
-					{/* <div className="flex-1 flex mr-9 justify-center">
+					<div className="flex items-center justify-between gap-2">
+						<span className="tex-sm/none">Placement</span>
+
 						<ButtonGroup
 							choices={["top", "center", "bottom"]}
 							value={selectedScene.text.placement || "top"}
 							onChange={(placement) => updateText({ placement })}
 						/>
-					</div> */}
+					</div>
 
-					<div className="ml-7 flex items-center gap-1.5">
-						<PaintBrushIcon width={15} />
+					<div className="flex items-center justify-between gap-2">
+						<span className="tex-sm/none">Animation</span>
 
 						<ButtonGroup
-							choices={["outline", "solid", "filled", "inverted"]}
-							value={selectedScene.text.style || "slide"}
-							onChange={(style) => updateText({ style })}
+							choices={["swing", "slide", "appear", "swipe"]}
+							value={selectedScene.text.animation || "slide"}
+							onChange={(animation) =>
+								handleAnimationChanged(animation)
+							}
 						/>
 					</div>
-				</div>
 
-				<div className="flex flex-col gap-2.5 pl-0.5">
 					<div className="flex items-center justify-between gap-2">
-						<div className="flex items-center gap-1.5">
-							<Bars3Icon width={18} />
+						<span className="tex-sm/none">Colors</span>
 
-							<ButtonGroup
-								choices={["top", "center", "bottom"]}
-								value={selectedScene.text.placement || "top"}
-								onChange={(placement) =>
-									updateText({ placement })
-								}
-							/>
-						</div>
-
-						<div className="flex items-center gap-1.5">
-							<SignalIcon width={18} />
-
-							<ButtonGroup
-								choices={["slide", "type", "swipe"]}
-								value={selectedScene.text.animation || "slide"}
-								onChange={(animation) =>
-									updateText({ animation })
-								}
-							/>
-						</div>
+						<ButtonGroup
+							choices={["transparent", "black", "white"]}
+							value={selectedScene.text.colors || "black"}
+							onChange={(colors) => updateText({ colors })}
+						/>
 					</div>
 				</div>
 			</BottomSheet>

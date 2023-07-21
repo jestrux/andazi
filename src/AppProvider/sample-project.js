@@ -6,7 +6,7 @@ export default {
 		{
 			id: "scenebwqn48cp7hp",
 			duration: 6,
-			background: "linear-gradient(90deg, #d53369 0%, #daae51 100%)",
+			background: "linear-gradient(90deg, #751A33 0%, #D28F33 100%)",
 			image: {
 				show: true,
 				url: "https://images.unsplash.com/photo-1429198739803-7db875882052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDF8fGF1dHVtbnxlbnwwfHx8fDE2ODg1NDQzOTN8MA&ixlib=rb-4.0.3&q=80&w=600",
@@ -14,18 +14,18 @@ export default {
 			text: {
 				content: "AUTUMN'S BAACK!!!",
 				placement: "top",
-				style: "filled",
-				animation: "type",
+				colors: "black",
+				animation: "swing",
 			},
 		},
 		{
 			id: "sceneesiw3bn69k4",
 			duration: 6,
-			background: "#F7ECE3",
+			background: "#F1A933",
 			text: {
 				content: "WITH FLOWERS\nAND SUN",
 				placement: "bottom",
-				style: "inverted",
+				colors: "white",
 				animation: "swipe",
 			},
 			image: {
@@ -37,7 +37,7 @@ export default {
 		{
 			id: "sceneqw7rrqxnqwe",
 			duration: 6,
-			background: "linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%)",
+			background: "linear-gradient(90deg, #E45932 0%, #F3A93E 100%)",
 			image: {
 				show: false,
 				url: "https://images.unsplash.com/photo-1567584032175-e3605e93b056?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDE0fHxhdXR1bW58ZW58MHx8fHwxNjg4NTQ0MzkzfDA&ixlib=rb-4.0.3&q=80&w=600",
@@ -45,8 +45,8 @@ export default {
 			text: {
 				content: "LET'S HAVE US\nSOME FUN",
 				placement: "center",
-				style: "solid",
-				animation: "slide",
+				colors: "transparent",
+				animation: "appear",
 			},
 			clip: "circle",
 		},

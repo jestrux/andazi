@@ -5,7 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
 	const { pathname } = useLocation();
-	const { selectedScene } = useAppContext();
+	const { selectedScene, editorAnimator } = useAppContext();
 
 	const handleShare = async () => {
 		try {
@@ -87,14 +87,16 @@ const App = () => {
 				</div>
 
 				<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
-					<div className="shadow-xl h-full w-full relative overflow-hidden">
-						{selectedScene && (
-							<Scene
-								key={selectedScene.id}
-								{...selectedScene}
-								className="absolute inset-6 border rounded-md"
-							/>
-						)}
+					<div
+						ref={editorAnimator}
+						className="shadow-xl h-full w-full relative overflow-hidden"
+					>
+						<Scene
+							key={selectedScene.id}
+							{...selectedScene}
+							id="editorScene"
+							className="absolute inset-6 border rounded-md"
+						/>
 					</div>
 
 					<div

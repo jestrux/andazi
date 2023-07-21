@@ -67,7 +67,7 @@ const BackgroundEditor = () => {
 				)}
 			</div>
 
-			<div className="-mb-4 mt-4 flex items-center justify-center">
+			<div className="mt-4 flex items-center justify-center">
 				{["Solid Color", "Gradient"].map((type, index) => (
 					<button
 						className={`h-8 px-4 text-sm font-semibold rounded-full

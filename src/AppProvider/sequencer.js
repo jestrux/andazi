@@ -1,9 +1,10 @@
 import { stagger } from "framer-motion";
 
-export const textAnimation = ({ id, text, duration, stagger }) => {
+export const textAnimation = ({ id, text, duration }) => {
 	if (!text) return [[]];
+	const animation = text?.animation || "slide";
 
-	if (text?.animation == "type") {
+	if (animation == "swing") {
 		return [
 			[
 				`#${id} li`,
@@ -36,7 +37,7 @@ export const textAnimation = ({ id, text, duration, stagger }) => {
 		];
 	}
 
-	if (text?.animation == "swipe") {
+	if (animation == "swipe") {
 		return [
 			[
 				`#${id} li`,
@@ -47,6 +48,23 @@ export const textAnimation = ({ id, text, duration, stagger }) => {
 					bounce: 0.5,
 					delay: stagger(0.1),
 					duration: 1,
+				},
+			],
+		];
+	}
+
+	if (animation == "appear") {
+		return [
+			[
+				`#${id} li`,
+				// { opacity: [0, 1], y: [40, 0] },
+				{ opacity: [0, 1], scale: [1.2, 1] },
+				{
+					at: `-${duration - 0.3}`,
+					type: "spring",
+					bounce: 0.35,
+					delay: stagger(0.1),
+					duration: 1.5,
 				},
 			],
 		];
@@ -135,7 +153,7 @@ export default function sequencer({ scene, index, lastSceneDuration }) {
 		}),
 		`image-${index}`,
 		imageAnimation({ id, duration }),
-		...textAnimation({ id, text, duration, stagger }),
+		...textAnimation({ id, text, duration }),
 		fadeOutAnimation({ id, duration }),
 	];
 }

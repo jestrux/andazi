@@ -1,17 +1,27 @@
 import { parseColor } from "../utils";
 import { useAppContext } from "../AppProvider";
+import { useLocation } from "react-router-dom";
 
 const Scene = ({ id, background, image, text, className, hideText }) => {
-	const { writingText, playing } = useAppContext();
+	const { pathname } = useLocation();
+	const { writingText } = useAppContext();
 	const textPlacement = text.placement || "top";
-	const filled = ["filled", "inverted"].includes(text.style);
-	const inverted = text.style == "inverted";
-	const backgroundColor = !filled
-		? "transparent"
-		: inverted
-		? "white"
-		: "black";
-	const textColor = !filled || !inverted ? "white" : "black";
+	const { background: textBackground, color: textColor } = {
+		transparent: {
+			background: "transparent",
+			color: "white",
+		},
+		black: {
+			background: "black",
+			color: "white",
+		},
+		white: {
+			background: "white",
+			color: "black",
+		},
+	}[text.colors || "black"];
+
+	const hideImage = !image.show || pathname.indexOf("edit-background") != -1;
 
 	return (
 		<div id={id} className={`${className}`}>
@@ -19,12 +29,11 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 				className="rounded-lg h-full w-full relative overflow-hidden"
 				style={{
 					background: parseColor(background),
-					// borderRadius: playing ? 0 : "8px",
 				}}
 			>
 				<div
 					className="h-full w-full"
-					style={{ opacity: !image.show ? 0 : 1 }}
+					style={{ opacity: hideImage ? 0 : 1 }}
 				>
 					<img
 						id="image"
@@ -40,14 +49,16 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 				{!writingText && text && (
 					<ul
 						className={`${
-							!filled ? "-space-y-3" : "gap-2"
+							textBackground == "transparent"
+								? "-space-y-3"
+								: "gap-2"
 						} absolute inset-x-2 text-3xl/none tracking-wide font-bold flex flex-col items-center justify-center`}
 						style={{
 							top: ["center", "top"].includes(textPlacement)
-								? 60
+								? 30
 								: "",
 							bottom: ["center", "bottom"].includes(textPlacement)
-								? 160
+								? 30
 								: "",
 						}}
 					>
@@ -61,18 +72,13 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 								<div
 									className="absolute inset-0 origin-bottom-left rounded skew-x-6 bg-black"
 									style={{
-										background: backgroundColor,
+										background: textBackground,
 									}}
 								></div>
 								<strong
 									className="relative inline-flex gap-2 text-white"
 									style={{
 										color: textColor,
-										WebkitTextFillColor:
-											text.style == "outline"
-												? "transparent"
-												: textColor,
-										WebkitTextStroke: `1px ${textColor}`,
 									}}
 								>
 									{_text.split(" ").map((t, i) => (

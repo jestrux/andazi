@@ -13,15 +13,15 @@ export default function ButtonGroup({ choices = [], onChange, value: _value }) {
 				return (
 					<button
 						key={index}
-						className={`capitalize cursor-pointer ${
+						className={`text-sm/none font-medium p-2.5 capitalize cursor-pointer ${
 							index < choices.length - 1
 								? "border-r"
 								: "border-transparent"
-						} ${selected ? "border-transparent bg-content/10 stext-card rounded-sm" : "opacity-60"}`}
-						style={{
-							fontSize: "12px",
-							padding: "0.25rem 0.5rem",
-						}}
+						} ${
+							selected
+								? "border-transparent bg-content/10 stext-card rounded-sm"
+								: "opacity-60"
+						}`}
 						onClick={() => onChange(value)}
 					>
 						{label.toString()}

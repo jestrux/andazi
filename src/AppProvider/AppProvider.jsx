@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useMusic from "../useMusic";
 
 export default function AppProvider({ children }) {
+	const [editorAnimator, animateEditor] = useAnimate();
 	const [animator, animate] = useAnimate();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
@@ -114,7 +115,10 @@ export default function AppProvider({ children }) {
 				updateSelectedScene,
 				playing,
 				togglePlay,
+				editorAnimator,
+				animateEditor,
 				animator,
+				animate,
 				closeBottomSheet,
 			}}
 		>

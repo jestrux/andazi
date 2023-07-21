@@ -15,7 +15,10 @@ export const ProjectContext = createContext({
 	updateSelectedScene: () => {},
 	playing: false,
 	togglePlay: () => {},
+	editorAnimator: null,
+	animateEditor: () => {},
 	animator: null,
+	animate: () => {},
 	closeBottomSheet: () => {},
 });
 
