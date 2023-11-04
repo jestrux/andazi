@@ -1,5 +1,14 @@
 import { useEffect, useRef } from "react";
-import { useAppContext } from "../AppProvider";
+import { useAppContext } from "../../AppProvider";
+import weddingDivider from "./images/wedding-divider.svg";
+import couple from "./images/couple.png";
+import flowerGreen from "./images/flowers/wedding-green.png";
+import regularFlower from "./images/flowers/wedding.png";
+
+const flowers = {
+	regular: regularFlower,
+	green: flowerGreen,
+};
 
 export default function Card() {
 	const qr = useRef(null);
@@ -70,7 +79,7 @@ export default function Card() {
 					<img
 						id="couple"
 						className="absolute right-0 -mt-1.5 -mr-3 w-56 object-cover object-left-top"
-						src={theme.image ?? "/img/couple-2.png"}
+						src={theme.image ?? couple}
 						alt=""
 						style={{ opacity: theme.imageOpacity }}
 					/>
@@ -139,7 +148,7 @@ export default function Card() {
 
 				<img
 					className="mt-3.5 mb-1 w-40 mx-auto block"
-					src="/img/dividers/wedding.svg"
+					src={weddingDivider}
 					alt=""
 				/>
 
@@ -255,7 +264,7 @@ export default function Card() {
 			<div className="-m">
 				<img
 					className="z-10 absolute right-0 bottom-0 w-64 -mr-32 -mb-12 object-cover"
-					src={`/img/flowers/${theme.flower ?? "wedding.png"}`}
+					src={flowers[theme.flower] ?? regularFlower}
 					alt=""
 				/>
 			</div>
