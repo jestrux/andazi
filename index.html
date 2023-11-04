@@ -21,16 +21,59 @@
 		<meta name="description" content="Basic video editting" />
 		<link rel="manifest" href="manifest.json" />
 
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Aclonica&family=Great+Vibes&family=Parisienne&display=swap"
 			rel="stylesheet"
-		/>
+		/> -->
+
 		<title>Andazi</title>
+
+		<style>
+			@font-face {
+				font-family: "Great Vibes";
+				src: url("fonts/Great_Vibes/Regular.ttf");
+			}
+
+			@font-face {
+				font-family: "Parisienne", cursive;
+				src: url("fonts/Parisienne/Regular.ttf");
+			}
+
+			.great {
+				font-family: "Great Vibes", cursive;
+			}
+
+			.paris {
+				font-family: "Parisienne", cursive;
+			}
+
+			#couple {
+				-webkit-mask-image: -webkit-gradient(
+					linear,
+					center top,
+					center bottom,
+					color-stop(0, rgba(0, 0, 0, 1)),
+					color-stop(0.35, rgba(0, 0, 0, 1)),
+					color-stop(0.65, rgba(0, 0, 0, 0.05)),
+					color-stop(0.75, rgba(0, 0, 0, 0)),
+					color-stop(1, rgba(0, 0, 0, 0))
+				);
+			}
+
+			.mont,
+			.mont * {
+				font-family: "Open Sans", "Helvetica Neue", sans-serif;
+			}
+		</style>
+
+		<script src="https://www.unpkg.com/dom-to-image@2.6.0/dist/dom-to-image.min.js"></script>
+		<script src="https://www.easyproject.cn/easyqrcodejs/easy.qrcode.min.js?v=11"></script>
 	</head>
 	<body class="bg-card text-content">
 		<div id="root"></div>
+
 		<script type="module" src="/src/main.jsx"></script>
 		<script>
 			window.openFullscreen = (el = document.querySelector("#root")) => {

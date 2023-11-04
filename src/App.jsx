@@ -1,7 +1,6 @@
 import AppProvider, { useAppContext } from "./AppProvider";
-import Scene from "./components/Scene";
-import Stage from "./components/Stage";
 import { Outlet, useLocation } from "react-router-dom";
+import Card from "./components/Card";
 
 const App = () => {
 	const { pathname } = useLocation();
@@ -9,12 +8,25 @@ const App = () => {
 
 	const handleShare = async () => {
 		try {
-			const image = await fetch("preview.mp4");
-			// const image = await fetch(project);
-			const blob = await image.blob();
-			const file = new File([blob], "video.mp4", { type: "video/mp4" });
-			await navigator.share({ files: [file] });
-			console.log("Share was successful.");
+			const dataUrl = await window.domtoimage.toPng(
+				document.querySelector("#cardPreview")
+			);
+			const response = await fetch(dataUrl);
+			const blob = await response.blob();
+			const file = new File([blob], "invitation-card.png", {
+				type: "image/png",
+			});
+
+			if (navigator.share && navigator.canShare) {
+				await navigator.share({ files: [file] });
+				console.log("Share was successful.");
+			} else {
+				const link = document.createElement("a");
+				link.href = dataUrl;
+				link.download = "invitation-card.png";
+				link.click();
+				link.remove();
+			}
 		} catch (error) {
 			console.log("Sharing failed", error);
 		}
@@ -86,28 +98,17 @@ const App = () => {
 					</div>
 				</div>
 
-				<div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
-					<div
-						ref={editorAnimator}
-						className="shadow-xl h-full w-full relative overflow-hidden"
-					>
-						<Scene
-							key={selectedScene.id}
-							{...selectedScene}
-							id="editorScene"
-							className="absolute inset-6 border rounded-md"
-						/>
-					</div>
-
-					<div
-						className={`${
-							pathname.indexOf("scenes") != -1 &&
-							"opacity-0 pointer-events-none"
-						}  z-10 absolute inset-0`}
-					>
-						<Stage />
-					</div>
+				<div className="flex-1 bg-canvas overflow-auto relative p-6">
+					<Card />
 				</div>
+
+				{/* <div className="flex-1 flex items-stretch bg-canvas overflow-auto relative">
+					<div className="shadow-xl h-full w-full relative overflow-hidden">
+						<div className="absolute inset-x-6">
+							<Card />
+						</div>
+					</div>
+				</div> */}
 
 				<Outlet />
 			</div>
