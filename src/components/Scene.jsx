@@ -37,6 +37,7 @@ const Scene = ({ id, background, image, text, className, hideText }) => {
 				>
 					<img
 						id="image"
+						key={image.url}
 						className={`w-full h-full rounded-lg object-cover
 					${image.filter == "grayscale" && "grayscale"}
 					${image.filter == "sepia" && "sepia"}

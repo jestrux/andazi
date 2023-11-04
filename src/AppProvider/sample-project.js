@@ -1,5 +1,6 @@
 export default {
 	name: "My first project",
+	imageSearchQuery: "autumn",
 	preview:
 		"https://images.unsplash.com/photo-1429198739803-7db875882052?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxNjE2NXwwfDF8c2VhcmNofDF8fGF1dHVtbnxlbnwwfHx8fDE2ODg1NDQzOTN8MA&ixlib=rb-4.0.3&q=80&w=600",
 	scenes: [

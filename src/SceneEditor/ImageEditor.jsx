@@ -1,7 +1,10 @@
 import { useAppContext } from "../AppProvider";
 import BottomSheet from "../components/BottomSheet";
+import ButtonGroup from "../components/ButtonGroup";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ImageEditor = () => {
+	const navigate = useNavigate();
 	const { selectedScene, updateSelectedScene } = useAppContext();
 	const image = selectedScene?.image;
 	const selectedFilter = image?.filter || "normal";
@@ -16,25 +19,34 @@ const ImageEditor = () => {
 	};
 
 	return (
-		<BottomSheet>
-			<h3 className="mb-4 text-lg/none font-semibold ml-0.5">
-				Edit image
-			</h3>
+		<>
+			<BottomSheet>
+				<div className="flex flex-col gap-2.5 pl-1">
+					<div className="-ml-1 flex items-center">
+						<button
+							className="border h-8 flex items-center pt-px px-3 text-sm/none font-semibold rounded-full"
+							onClick={() => navigate("search")}
+						>
+							Change Image
+						</button>
+					</div>
 
-			<div className="mt-4 flex items-center gap-3">
-				{["normal", "grayscale", "sepia"].map((filter, index) => (
-					<button
-						key={index}
-						className={`py-1 px-3 border rounded capitalize
-						${selectedFilter == filter ? "bg-content text-card" : ""}
-						`}
-						onClick={() => updateImage({ filter })}
-					>
-						{filter}
-					</button>
-				))}
+					<div className="flex items-center justify-between gap-2">
+						<span className="tex-sm/none">Filter</span>
+
+						<ButtonGroup
+							choices={["normal", "grayscale", "sepia"]}
+							value={selectedFilter}
+							onChange={(filter) => updateImage({ filter })}
+						/>
+					</div>
+				</div>
+			</BottomSheet>
+
+			<div className="bottom-nav z-[200] fixed inset-0 pointer-events-none">
+				<Outlet />
 			</div>
-		</BottomSheet>
+		</>
 	);
 };
 

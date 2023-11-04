@@ -12,7 +12,7 @@ const BottomSheet = ({ children }) => {
 				onClick={closeBottomSheet}
 			></div>
 
-			<div className="relative">
+			<div className="relative pointer-events-auto">
 				<div
 					className="absolute bg-canvas h-4 top-0 inset-x-0"
 					onClick={closeBottomSheet}

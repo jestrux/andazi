@@ -23,21 +23,25 @@ export default function AppProvider({ children }) {
 		({ id }) => id == selectedSceneId
 	);
 
-	const updateSelectedScene = (newValues = {}) => {
-		setProject((p) => {
-			return {
-				...p,
-				scenes: p.scenes.map((scene) => {
-					if (scene.id == selectedSceneId) {
-						return {
-							...scene,
-							...newValues,
-						};
-					}
+	const updateProject = (newValues = {}) => {
+		setProject((p) => ({
+			...p,
+			...newValues,
+		}));
+	};
 
-					return scene;
-				}),
-			};
+	const updateSelectedScene = (newValues = {}) => {
+		updateProject({
+			scenes: project.scenes.map((scene) => {
+				if (scene.id == selectedSceneId) {
+					return {
+						...scene,
+						...newValues,
+					};
+				}
+
+				return scene;
+			}),
 		});
 	};
 
@@ -82,7 +86,14 @@ export default function AppProvider({ children }) {
 	// const closeBottomSheet = () =>
 	// 	sceneId ? navigate("/", { replace: true }) : setWritingText("/");
 	const closeBottomSheet = () => {
-		navigate(["/scenes", "/music"].includes(pathname) ? "/" : "/scenes", {
+		let backPath = ["/scenes", "/music"].includes(pathname)
+			? "/"
+			: "/scenes";
+
+		if (pathname.indexOf("edit-image/search") != -1)
+			backPath = pathname.replace("search", "");
+
+		navigate(backPath, {
 			replace: true,
 		});
 	};
@@ -103,6 +114,7 @@ export default function AppProvider({ children }) {
 		<ProjectContext.Provider
 			value={{
 				project,
+				updateProject,
 				writingText,
 				setWritingText,
 				musicTrack,

@@ -17,6 +17,7 @@ import TextEditor from "./SceneEditor/TextEditor";
 import SceneMenu from "./components/SceneMenu";
 import MainMenu from "./components/MainMenu";
 import MusicMenu from "./components/MusicMenu";
+import SearchImages from "./SceneEditor/SearchImages";
 
 const router = createHashRouter(
 	createRoutesFromElements(
@@ -29,7 +30,9 @@ const router = createHashRouter(
 						path="edit-background"
 						element={<BackgroundEditor />}
 					/>
-					<Route path="edit-image" element={<ImageEditor />} />
+					<Route path="edit-image" element={<ImageEditor />}>
+						<Route path="search" element={<SearchImages />} />
+					</Route>
 					<Route path="edit-text" element={<TextEditor />} />
 				</Route>
 			</Route>

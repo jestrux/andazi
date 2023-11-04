@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 
 export const ProjectContext = createContext({
 	project: null,
+	updateProject: () => {},
 	scenes: [],
 	writingText: false,
 	setWritingText: () => {},
