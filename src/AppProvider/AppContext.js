@@ -1,6 +1,12 @@
 import { createContext, useContext } from "react";
 
 export const ProjectContext = createContext({
+	template: {},
+	updateTemplate: () => {},
+	theme: {},
+	updateTheme: () => {},
+	guest: {},
+	updateGuest: () => {},
 	project: null,
 	updateProject: () => {},
 	scenes: [],

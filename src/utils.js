@@ -1,5 +1,41 @@
 export const randomId = () => Math.random().toString(36).slice(2);
 
+export const themes = {
+	orange: {
+		name: "orange",
+		backgroundColor: "#F2F7DE",
+		borderColor: "linear-gradient(120deg, #131a6d 0%, #046d55 100%)",
+		primaryColor: "#FF5722",
+		imageOpacity: "50%",
+		flower: null,
+	},
+	pink: {
+		name: "pink",
+		backgroundColor: "#fff7fa",
+		borderColor: "linear-gradient(120deg, #300536 0%, #6d0469 100%)",
+		primaryColor: "#E91E63",
+		imageOpacity: "50%",
+		flower: null,
+	},
+	green: {
+		name: "green",
+		backgroundColor: "#f9fff9",
+		borderColor: "linear-gradient(120deg, #A1A62A 0%, #8BC34A 100%)",
+		primaryColor: "#8bc34a",
+		imageOpacity: "50%",
+		flower: "wedding-green.png",
+	},
+	burgundy: {
+		name: "burgundy",
+		backgroundColor: "#FFFFFF",
+		borderColor:
+			"linear-gradient(120deg, rgba(60,40,63,1) 0%, rgba(168,97,26,1) 100%)",
+		primaryColor: "#510216",
+		imageOpacity: "50%",
+		flower: null,
+	},
+};
+
 export const parseColor = (value) => {
 	if (!value.length) return null;
 

@@ -5,8 +5,38 @@ import { useAnimate } from "framer-motion";
 import sequencer from "./sequencer";
 import { useLocation, useNavigate } from "react-router-dom";
 import useMusic from "../useMusic";
+import { themes } from "../utils";
 
 export default function AppProvider({ children }) {
+	const [cardDetails, setCardDetails] = useState({
+		theme: themes.burgundy,
+		guest: {
+			code: "276033",
+			name: "Mr. Chris Bajire",
+			cardType: "Single",
+		},
+		template: {
+			groom: "James",
+			bride: "Audrey",
+			bibleVerse: "Proverbs 18:22",
+			date: "10th July",
+			parents: "Mr. and Mrs. Hamand Kisiye",
+			churchTime: "10:00 AM",
+			churchLocation: "KKKT Chang'ombe Mabatini",
+			receptionTime: "07:30 PM",
+			receptionLocation: "Police Mess ( Oyster Bay )",
+			dressCode: "party decent wear",
+			themeColor: "burgundy",
+			contacts: [
+				{ name: "Francis Chami", phoneNumber: "0721 011 990" },
+				{ name: "Ruth Mkwape", phoneNumber: "0797 210 173" },
+				{ name: "Danford Kisiye", phoneNumber: "0711 602 000" },
+			],
+		},
+	});
+	const theme = cardDetails.theme;
+	const guest = cardDetails.guest;
+	const template = cardDetails.template;
 	const [editorAnimator, animateEditor] = useAnimate();
 	const [animator, animate] = useAnimate();
 	const navigate = useNavigate();
@@ -19,6 +49,37 @@ export default function AppProvider({ children }) {
 	const [selectedSceneId, setSelectedScene] = useState(
 		project?.scenes?.[0].id
 	);
+
+	const updateTemplate = (newValues = {}) => {
+		setCardDetails((cardDetails) => ({
+			...cardDetails,
+			template: {
+				...cardDetails.template,
+				...newValues,
+			},
+		}));
+	};
+
+	const updateTheme = (newValues = {}) => {
+		setCardDetails((cardDetails) => ({
+			...cardDetails,
+			theme: {
+				...cardDetails.theme,
+				...newValues,
+			},
+		}));
+	};
+
+	const updateGuest = (newValues = {}) => {
+		setCardDetails((cardDetails) => ({
+			...cardDetails,
+			guest: {
+				...cardDetails.guest,
+				...newValues,
+			},
+		}));
+	};
+
 	const selectedScene = project?.scenes?.find(
 		({ id }) => id == selectedSceneId
 	);
@@ -86,9 +147,10 @@ export default function AppProvider({ children }) {
 	// const closeBottomSheet = () =>
 	// 	sceneId ? navigate("/", { replace: true }) : setWritingText("/");
 	const closeBottomSheet = () => {
-		let backPath = ["/scenes", "/music"].includes(pathname)
-			? "/"
-			: "/scenes";
+		// let backPath = ["/scenes", "/music"].includes(pathname)
+		// 	? "/"
+		// 	: "/scenes";
+		let backPath = "/";
 
 		if (pathname.indexOf("edit-image/search") != -1)
 			backPath = pathname.replace("search", "");
@@ -113,6 +175,12 @@ export default function AppProvider({ children }) {
 	return (
 		<ProjectContext.Provider
 			value={{
+				template,
+				updateTemplate,
+				theme,
+				updateTheme,
+				guest,
+				updateGuest,
 				project,
 				updateProject,
 				writingText,

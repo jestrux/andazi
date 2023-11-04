@@ -16,14 +16,20 @@ import BackgroundEditor from "./SceneEditor/BackgroundEditor";
 import TextEditor from "./SceneEditor/TextEditor";
 import SceneMenu from "./components/SceneMenu";
 import MainMenu from "./components/MainMenu";
-import MusicMenu from "./components/MusicMenu";
 import SearchImages from "./SceneEditor/SearchImages";
+import DesignEditor from "./components/DesignEditor";
+import GuestEditor from "./components/GuestEditor";
+import TemplateEditor from "./components/TemplateEditor";
+import ContactEditor from "./components/ContactEditor";
 
 const router = createHashRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
 			<Route index element={<MainMenu />} />
-			<Route path="music" element={<MusicMenu />} />
+			<Route path="design" element={<DesignEditor />} />
+			<Route path="template" element={<TemplateEditor />} />
+			<Route path="contacts" element={<ContactEditor />} />
+			<Route path="guest" element={<GuestEditor />} />
 			<Route path="scenes" element={<SceneMenu />}>
 				<Route path=":sceneId" element={<SceneEditor />}>
 					<Route

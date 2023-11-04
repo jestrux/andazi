@@ -1,32 +1,52 @@
 import {
-	MusicalNoteIcon,
-	RectangleStackIcon,
+	AdjustmentsHorizontalIcon,
+	AtSymbolIcon,
+	PhoneIcon,
+	UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import PlayButton from "./PlayButton";
+import {} from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 
 export default function MainMenu() {
 	return (
-		<div className="bottom-nav py-1 bg-card border-t flex items-center justify-between gap-3">
+		<div className="bottom-nav pt-3 pb-1 bg-card border-t flex items-center justify-between gap-3">
 			<Link
-				className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0"
-				to="scenes"
+				className="flex flex-col gap-1.5 items-center justify-center flex-1 flex-shrink-0"
+				to="design"
 			>
-				<RectangleStackIcon width={20} />
+				<AdjustmentsHorizontalIcon width={24} />
 				<span className="text-xs/none font-light opacity-70">
-					Scenes
+					Card Design
 				</span>
 			</Link>
 
-			<PlayButton />
+			<Link
+				className="flex flex-col gap-1.5 items-center justify-center flex-1 flex-shrink-0"
+				to="template"
+			>
+				<AtSymbolIcon width={24} />
+				<span className="text-xs/none font-light opacity-70">
+					Card Content
+				</span>
+			</Link>
 
 			<Link
-				className="flex flex-col gap-1 items-center justify-center flex-1 flex-shrink-0"
-				to="music"
+				className="flex flex-col gap-1.5 items-center justify-center flex-1 flex-shrink-0"
+				to="contacts"
 			>
-				<MusicalNoteIcon width={20} />
+				<PhoneIcon width={22} />
 				<span className="text-xs/none font-light opacity-70">
-					Music
+					Contacts
+				</span>
+			</Link>
+
+			<Link
+				className="flex flex-col gap-1.5 items-center justify-center flex-1 flex-shrink-0"
+				to="guest"
+			>
+				<UserCircleIcon width={24} />
+				<span className="text-xs/none font-light opacity-70">
+					Guest Info
 				</span>
 			</Link>
 		</div>
